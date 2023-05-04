@@ -11,7 +11,7 @@ export interface CharacterCardProps {
 
 export const CharacterCard: FC<CharacterCardProps> = ({ character: { name, image, id } }) => {
   return (
-    <Card variant="outlined" component={Link} to={`/${id}`}>
+    <Card variant="outlined" component={Link} to={`/character/${id}`}>
       <CardMedia component="img" image={image} />
       <CardContent>
         <Typography>{name}</Typography>

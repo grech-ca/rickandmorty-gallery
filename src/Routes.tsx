@@ -13,7 +13,7 @@ const AppRoutes: FC = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/:characterId" element={<CharacterPage />} />
+          <Route path="/character/:characterId" element={<CharacterPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
