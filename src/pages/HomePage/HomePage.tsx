@@ -1,26 +1,23 @@
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment } from 'react';
 
-import {
-  Pagination,
-  Paper,
-  TextField,
-  Checkbox,
-  FormGroup,
-  FormControlLabel,
-  Typography,
-} from '@mui/material';
 import Helmet from 'react-helmet';
 
 import { CharacterCard } from 'components/character/CharacterCard';
+import { GalleryFilter } from 'components/character/GalleryFilter';
+
+import { useAppSelector } from 'hooks/useSelector';
+import { useDebounce } from 'hooks/useDebounce';
 
 import { useGetCharactersQuery } from 'lib/store/slices/apiSlice';
 
 export const HomePage: FC = () => {
-  const [page, setPage] = useState(1);
+  const { page, ...filter } = useAppSelector(state => state.charactersQueryParams);
+  const debouncedFilter = useDebounce(filter, 300);
 
-  const { data } = useGetCharactersQuery(page, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data } = useGetCharactersQuery(
+    { page, ...debouncedFilter },
+    { refetchOnMountOrArgChange: true },
+  );
 
   return (
     <Fragment>
@@ -38,45 +35,7 @@ export const HomePage: FC = () => {
           overflowY: 'auto',
         }}
       >
-        <div
-          style={{
-            position: 'sticky',
-            top: 20,
-          }}
-        >
-          <Paper
-            variant="outlined"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              height: 'fit-content',
-              width: 350,
-              marginBottom: 10,
-              padding: 12,
-            }}
-          >
-            <FormGroup>
-              <TextField placeholder="Search" />
-              <Typography>Gender</Typography>
-              <FormControlLabel control={<Checkbox />} label="Genderless" />
-              <FormControlLabel control={<Checkbox />} label="Male" />
-              <FormControlLabel control={<Checkbox />} label="Female" />
-              <FormControlLabel control={<Checkbox />} label="Unknown" />
-              <Typography>Status</Typography>
-              <FormControlLabel control={<Checkbox />} label="Alive" />
-              <FormControlLabel control={<Checkbox />} label="Dead" />
-              <FormControlLabel control={<Checkbox />} label="Unknown" />
-            </FormGroup>
-          </Paper>
-          <Pagination
-            page={page}
-            onChange={(_event, page) => setPage(page)}
-            count={data?.info.pages}
-            variant="outlined"
-            shape="rounded"
-          />
-        </div>
+        {data && <GalleryFilter pages={data.info.pages} />}
         <div
           style={{
             display: 'grid',
