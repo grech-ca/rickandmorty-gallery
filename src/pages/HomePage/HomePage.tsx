@@ -1,6 +1,14 @@
 import { FC, useState } from 'react';
 
-import { Pagination, Paper, TextField, Checkbox, FormGroup, FormControlLabel, Typography } from '@mui/material';
+import {
+  Pagination,
+  Paper,
+  TextField,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  Typography,
+} from '@mui/material';
 
 import { CharacterCard } from 'components/character/CharacterCard';
 
@@ -16,12 +24,13 @@ export const HomePage: FC = () => {
   return (
     <div
       style={{
-        margin: '0 auto',
-        padding: 20,
         display: 'flex',
         justifyContent: 'center',
         gap: 20,
-        width: '80%',
+        width: '100%',
+        position: 'relative',
+        height: '100%',
+        overflowY: 'auto',
       }}
     >
       <div
@@ -37,7 +46,7 @@ export const HomePage: FC = () => {
             flexDirection: 'column',
             alignItems: 'flex-start',
             height: 'fit-content',
-            width: 400,
+            width: 350,
             marginBottom: 10,
             padding: 12,
           }}

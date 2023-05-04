@@ -1,11 +1,12 @@
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 
+import { Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
 export const Layout: FC = () => {
   return (
-    <Fragment>
+    <Container style={{ padding: 20 }}>
       <Outlet />
-    </Fragment>
+    </Container>
   );
 };

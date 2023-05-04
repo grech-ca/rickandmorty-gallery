@@ -9,7 +9,10 @@ export const api = createApi({
     getCharacters: builder.query<Paginated<Character>, number>({
       query: (page = 1) => `character?page=${page}`,
     }),
+    getCharacterById: builder.query<Character, number>({
+      query: id => `character/${id}`,
+    }),
   }),
 });
 
-export const { useGetCharactersQuery } = api;
+export const { useGetCharactersQuery, useGetCharacterByIdQuery } = api;
