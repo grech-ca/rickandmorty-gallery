@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
 export const Layout: FC = () => {
   return (
-    <div>
+    <Fragment>
       <Outlet />
-    </div>
+    </Fragment>
   );
 };
