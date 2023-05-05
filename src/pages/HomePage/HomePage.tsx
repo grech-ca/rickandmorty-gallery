@@ -2,8 +2,8 @@ import { FC, Fragment } from 'react';
 
 import Helmet from 'react-helmet';
 
-import { CharacterCard } from 'components/character/CharacterCard';
 import { GalleryFilter } from 'components/character/GalleryFilter';
+import { CharacterGallery } from 'components/character/CharacterGallery/CharacterGallery';
 
 import { useAppSelector } from 'hooks/useSelector';
 import { useDebounce } from 'hooks/useDebounce';
@@ -14,7 +14,7 @@ export const HomePage: FC = () => {
   const { page, ...filter } = useAppSelector(state => state.charactersQueryParams);
   const debouncedFilter = useDebounce(filter, 300);
 
-  const { data } = useGetCharactersQuery(
+  const { data, isFetching } = useGetCharactersQuery(
     { page, ...debouncedFilter },
     { refetchOnMountOrArgChange: true },
   );
@@ -36,17 +36,7 @@ export const HomePage: FC = () => {
         }}
       >
         <GalleryFilter pages={data?.info.pages ?? 0} />
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 10,
-          }}
-        >
-          {data?.results.map(character => (
-            <CharacterCard key={character.id} character={character} />
-          ))}
-        </div>
+        <CharacterGallery characters={data?.results ?? []} isLoading={isFetching} />
       </div>
     </Fragment>
   );
