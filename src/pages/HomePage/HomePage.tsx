@@ -35,7 +35,7 @@ export const HomePage: FC = () => {
           overflowY: 'auto',
         }}
       >
-        {data && <GalleryFilter pages={data.info.pages} />}
+        <GalleryFilter pages={data?.info.pages ?? 0} />
         <div
           style={{
             display: 'grid',

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { CharacterGender, CharacterStatus } from 'lib/types';
+import { CHARACTER_GENDERS, CHARACTER_STATUSES, CharacterGender, CharacterStatus } from 'lib/types';
 
 export interface CharactersQueryParams {
   name: string;
@@ -8,12 +8,18 @@ export interface CharactersQueryParams {
   status: CharacterStatus | null;
   page: number;
 }
+const params = new URL(document.location.href).searchParams;
+
+const gender = params.get('gender') as CharacterGender;
+const status = params.get('status') as CharacterStatus;
+const name = params.get('name') ?? '';
+const page = +(params.get('page') ?? 1);
 
 const initialState: CharactersQueryParams = {
-  gender: null,
-  name: '',
-  status: null,
-  page: 1,
+  gender: CHARACTER_GENDERS.includes(gender) ? gender : null,
+  status: CHARACTER_STATUSES.includes(status) ? status : null,
+  name,
+  page,
 };
 
 const filterSlice = createSlice({

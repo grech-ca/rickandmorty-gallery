@@ -8,8 +8,11 @@ export interface Paginated<T extends object> {
   results: T[];
 }
 
-export type CharacterStatus = 'Alive' | 'Dead' | 'unknown';
-export type CharacterGender = 'Female' | 'Male' | 'Genderless' | 'unknown';
+export const CHARACTER_STATUSES = ['alive', 'dead', 'unknown'] as const;
+export type CharacterStatus = (typeof CHARACTER_STATUSES)[number];
+
+export const CHARACTER_GENDERS = ['female', 'male', 'genderless', 'unknown'] as const;
+export type CharacterGender = (typeof CHARACTER_GENDERS)[number];
 
 export interface CharacterLocationReference {
   name: string;
