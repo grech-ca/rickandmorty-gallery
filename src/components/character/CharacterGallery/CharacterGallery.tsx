@@ -13,7 +13,7 @@ export interface CharacterGalleryProps {
 
 export const CharacterGallery: FC<CharacterGalleryProps> = ({ characters, isLoading }) => {
   return (
-    <Grid container spacing={1.5}>
+    <Grid container spacing={1.5} alignContent="flex-start">
       {isLoading
         ? Array(20)
             .fill(null)

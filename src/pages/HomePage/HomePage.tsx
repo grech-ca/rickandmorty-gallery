@@ -12,12 +12,9 @@ import { useGetCharactersQuery } from 'lib/store/slices/apiSlice';
 
 export const HomePage: FC = () => {
   const { page, ...filter } = useAppSelector(state => state.charactersQueryParams);
-  const debouncedFilter = useDebounce(filter, 300);
+  const debouncedFilter = useDebounce(filter, 200);
 
-  const { data, isFetching } = useGetCharactersQuery(
-    { page, ...debouncedFilter },
-    { refetchOnMountOrArgChange: true },
-  );
+  const { data, isFetching, error } = useGetCharactersQuery({ page, ...debouncedFilter });
 
   return (
     <Fragment>
@@ -35,8 +32,8 @@ export const HomePage: FC = () => {
           overflowY: 'auto',
         }}
       >
-        <GalleryFilter pages={data?.info.pages ?? 0} />
-        <CharacterGallery characters={data?.results ?? []} isLoading={isFetching} />
+        <GalleryFilter pages={(!error && data?.info.pages) || 0} />
+        <CharacterGallery characters={(!error && data?.results) || []} isLoading={isFetching} />
       </div>
     </Fragment>
   );

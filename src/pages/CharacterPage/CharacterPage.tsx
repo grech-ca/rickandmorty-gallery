@@ -6,16 +6,20 @@ import { Typography, Link as MuiLink } from '@mui/material';
 
 import { useGetCharacterByIdQuery } from 'lib/store/slices/apiSlice';
 
+import { CharacterNotFoundPage } from './CharacterNotFoundPage';
+
 export const CharacterPage: FC = () => {
   const { characterId } = useParams();
 
   const { data: character, isLoading } = useGetCharacterByIdQuery(+characterId!);
 
-  if (isLoading) return <div>Loading</div>;
+  if (isLoading && !character) return <div>Loading</div>;
 
-  if (!character) return <div>Not found</div>;
+  if (!character) return <CharacterNotFoundPage />;
 
   const { name, status, species, image, gender, type, origin, location } = character;
+
+  console.log(character);
 
   return (
     <Fragment>

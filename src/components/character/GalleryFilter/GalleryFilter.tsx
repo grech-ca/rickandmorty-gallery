@@ -79,10 +79,11 @@ export const GalleryFilter: FC<GalleryFilterProps> = ({ pages }) => {
           />
           <Typography>Gender</Typography>
           <RadioGroup
-            defaultValue={gender ?? 'all'}
+            defaultValue="all"
             onChange={(_event, gender) =>
               updateFilter({ gender: gender === 'all' ? null : (gender as CharacterGender) })
             }
+            value={gender ?? 'all'}
           >
             <FormControlLabel value="all" control={<Radio />} label="All" />
             <FormControlLabel value="genderless" control={<Radio />} label="Genderless" />
@@ -92,10 +93,11 @@ export const GalleryFilter: FC<GalleryFilterProps> = ({ pages }) => {
           </RadioGroup>
           <Typography>Status</Typography>
           <RadioGroup
-            defaultValue={status ?? 'all'}
+            defaultValue="all"
             onChange={(_event, status) =>
               updateFilter({ status: status === 'all' ? null : (status as CharacterStatus) })
             }
+            value={status ?? 'all'}
           >
             <FormControlLabel value="all" control={<Radio />} label="All" />
             <FormControlLabel value="alive" control={<Radio />} label="Alive" />
@@ -104,13 +106,15 @@ export const GalleryFilter: FC<GalleryFilterProps> = ({ pages }) => {
           </RadioGroup>
         </FormGroup>
       </Paper>
-      <Pagination
-        page={page ?? 1}
-        onChange={handlePageChange}
-        count={pages}
-        variant="outlined"
-        shape="rounded"
-      />
+      {pages > 1 && (
+        <Pagination
+          page={page ?? 1}
+          onChange={handlePageChange}
+          count={pages}
+          variant="outlined"
+          shape="rounded"
+        />
+      )}
     </div>
   );
 };
