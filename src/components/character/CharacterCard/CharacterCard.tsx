@@ -36,5 +36,9 @@ export const CharacterCard: FC<CharacterCardProps | CharacterCardSkeletonProps> 
 
   if (skeleton) return card;
 
-  return <CharacterLinkWrapper to={`/character/${character.id}`}>{card}</CharacterLinkWrapper>;
+  return (
+    <CharacterLinkWrapper to={`/character/${character.id}`} state={{ canGoBack: true }}>
+      {card}
+    </CharacterLinkWrapper>
+  );
 };

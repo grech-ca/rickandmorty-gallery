@@ -27,7 +27,7 @@ export const CharacterImage: FC<CharacterImageProps> = ({
   };
 
   return (
-    <div style={{ ...style, position: 'relative', overflow: 'hidden' }}>
+    <div style={{ ...style, ...wrapperStyle, position: 'relative', overflow: 'hidden' }}>
       <Skeleton
         variant="rectangular"
         style={{

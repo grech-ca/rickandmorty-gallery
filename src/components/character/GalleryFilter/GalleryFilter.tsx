@@ -4,14 +4,17 @@ import {
   Pagination,
   Paper,
   TextField,
-  Radio,
   FormGroup,
-  FormControlLabel,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
   Typography,
-  RadioGroup,
 } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import qs from 'query-string';
+
+import { Signature } from 'components/common/Signature';
 
 import { useAppSelector } from 'hooks/useSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -23,6 +26,10 @@ import {
 } from 'lib/store/slices/charactersQueryParamsSlice';
 
 import { CharacterGender, CharacterStatus } from 'lib/types';
+
+import { ReactComponent as Logo } from 'assets/logo.svg';
+
+import { GalleryFilterWrapper } from './style';
 
 export interface GalleryFilterProps {
   pages: number;
@@ -52,12 +59,7 @@ export const GalleryFilter: FC<GalleryFilterProps> = ({ pages }) => {
   };
 
   return (
-    <div
-      style={{
-        position: 'sticky',
-        top: 20,
-      }}
-    >
+    <GalleryFilterWrapper>
       <Paper
         component="form"
         variant="outlined"
@@ -66,46 +68,73 @@ export const GalleryFilter: FC<GalleryFilterProps> = ({ pages }) => {
           flexDirection: 'column',
           alignItems: 'flex-start',
           height: 'fit-content',
-          width: 350,
+          width: '100%',
           marginBottom: 10,
-          padding: 12,
+          padding: 20,
         }}
       >
-        <FormGroup>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#000',
+            width: '100%',
+            marginBottom: 20,
+          }}
+        >
+          <Logo />
+          <Typography style={{ marginLeft: 10, fontWeight: 700, fontSize: 18 }}>
+            Rick and Morty Gallery
+          </Typography>
+        </div>
+        <FormGroup style={{ width: '100%' }}>
           <TextField
             placeholder="Search"
             onChange={({ target: { value } }) => updateFilter({ name: value })}
             value={name}
+            size="small"
+            fullWidth
+            autoFocus
+            style={{ marginBottom: 20 }}
           />
-          <Typography>Gender</Typography>
-          <RadioGroup
-            defaultValue="all"
-            onChange={(_event, gender) =>
-              updateFilter({ gender: gender === 'all' ? null : (gender as CharacterGender) })
-            }
-            value={gender ?? 'all'}
-          >
-            <FormControlLabel value="all" control={<Radio />} label="All" />
-            <FormControlLabel value="genderless" control={<Radio />} label="Genderless" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="unknown" control={<Radio />} label="Unknown" />
-          </RadioGroup>
-          <Typography>Status</Typography>
-          <RadioGroup
-            defaultValue="all"
-            onChange={(_event, status) =>
-              updateFilter({ status: status === 'all' ? null : (status as CharacterStatus) })
-            }
-            value={status ?? 'all'}
-          >
-            <FormControlLabel value="all" control={<Radio />} label="All" />
-            <FormControlLabel value="alive" control={<Radio />} label="Alive" />
-            <FormControlLabel value="dead" control={<Radio />} label="Dead" />
-            <FormControlLabel value="unknown" control={<Radio />} label="Unknown" />
-          </RadioGroup>
+          <FormControl fullWidth sx={{ marginY: 1 }}>
+            <InputLabel id="gender-select">Gender</InputLabel>
+            <Select
+              id="gender-select"
+              label="Gender"
+              value={gender ?? 'all'}
+              onChange={({ target: { value } }) =>
+                updateFilter({ gender: value === 'all' ? null : (value as CharacterGender) })
+              }
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="genderless">Genderless</MenuItem>
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="female">Female</MenuItem>
+              <MenuItem value="unknown">Unknown</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ marginY: 1 }}>
+            <InputLabel id="status-select">Status</InputLabel>
+            <Select
+              id="status-select"
+              label="Status"
+              value={status ?? 'all'}
+              onChange={({ target: { value } }) =>
+                updateFilter({ status: value === 'all' ? null : (value as CharacterStatus) })
+              }
+            >
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="alive">Alive</MenuItem>
+              <MenuItem value="dead">Dead</MenuItem>
+              <MenuItem value="unknown">Unknown</MenuItem>
+            </Select>
+          </FormControl>
         </FormGroup>
+        <Signature />
       </Paper>
+
       {pages > 1 && (
         <Pagination
           page={page ?? 1}
@@ -113,8 +142,9 @@ export const GalleryFilter: FC<GalleryFilterProps> = ({ pages }) => {
           count={pages}
           variant="outlined"
           shape="rounded"
+          style={{ alignSelf: 'flex-end' }}
         />
       )}
-    </div>
+    </GalleryFilterWrapper>
   );
 };
