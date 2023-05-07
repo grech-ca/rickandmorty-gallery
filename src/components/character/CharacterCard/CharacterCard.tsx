@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Card, CardContent, Skeleton } from '@mui/material';
 
-import { CharacterImage } from './components/CharacterImage';
+import { CharacterImage } from 'components/character/CharacterImage';
 
 import { Character } from 'lib/types';
 
@@ -23,18 +23,13 @@ export const CharacterCard: FC<CharacterCardProps | CharacterCardSkeletonProps> 
 }) => {
   const card = (
     <Card variant="outlined">
-      {skeleton ? (
-        <Skeleton style={{ height: 150, width: '100%' }} variant="rectangular" />
-      ) : (
-        <CharacterImage
-          src={character.image}
-          style={{ height: 150, width: '100%' }}
-          skeletonProps={{ variant: 'rectangular' }}
-        />
-      )}
-
+      <CharacterImage
+        src={character?.image}
+        style={{ height: 150, width: '100%' }}
+        isLoading={skeleton}
+      />
       <CardContent>
-        <CharacterName>{skeleton ? <Skeleton /> : character.name}</CharacterName>
+        <CharacterName>{skeleton ? <Skeleton width="70%" /> : character.name}</CharacterName>
       </CardContent>
     </Card>
   );

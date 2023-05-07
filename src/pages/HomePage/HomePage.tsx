@@ -1,6 +1,7 @@
 import { FC, Fragment } from 'react';
 
 import Helmet from 'react-helmet';
+import { motion } from 'framer-motion';
 
 import { GalleryFilter } from 'components/character/GalleryFilter';
 import { CharacterGallery } from 'components/character/CharacterGallery/CharacterGallery';
@@ -33,7 +34,14 @@ export const HomePage: FC = () => {
         }}
       >
         <GalleryFilter pages={(!error && data?.info.pages) || 0} />
-        <CharacterGallery characters={(!error && data?.results) || []} isLoading={isFetching} />
+        <motion.div
+          key={page}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <CharacterGallery characters={(!error && data?.results) || []} isLoading={isFetching} />
+        </motion.div>
       </div>
     </Fragment>
   );

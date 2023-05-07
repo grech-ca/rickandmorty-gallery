@@ -7,6 +7,7 @@ export const CharacterName = styled(Typography)({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   maxWidth: '100%',
+  position: 'relative',
 });
 
 export const CharacterLinkWrapper = styled(Link)({
