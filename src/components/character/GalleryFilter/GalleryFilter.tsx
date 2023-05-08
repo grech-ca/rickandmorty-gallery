@@ -18,7 +18,6 @@ import { Signature } from 'components/common/Signature';
 
 import { useAppSelector } from 'hooks/useSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useIsMobile } from 'hooks/useIsMobile';
 
 import {
   CharactersQueryParams,
@@ -39,8 +38,6 @@ export interface GalleryFilterProps {
 export const GalleryFilter: FC<GalleryFilterProps> = ({ pages }) => {
   const { page, status, name, gender } = useAppSelector(state => state.charactersQueryParams);
   const dispatch = useAppDispatch();
-
-  const isMobile = useIsMobile();
 
   const [, setSearchParams] = useSearchParams();
 
