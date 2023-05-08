@@ -12,4 +12,5 @@ export const NoCharactersContainer = styled(Box)({
 export const NoCharactersMessage = styled(motion(Typography))(({ theme }) => ({
   color: theme.palette.grey[400],
   fontSize: 40,
+  textAlign: 'center',
 }));

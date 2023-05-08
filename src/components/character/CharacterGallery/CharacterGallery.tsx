@@ -28,7 +28,7 @@ export const CharacterGallery: FC<CharacterGalleryProps> = ({ characters, isLoad
     );
 
   return (
-    <Grid container spacing={1.5} alignContent="flex-start" flex={1} width="100%">
+    <Grid container spacing={1.5} alignContent="flex-start" flex={1}>
       {isLoading
         ? Array(20)
             .fill(null)

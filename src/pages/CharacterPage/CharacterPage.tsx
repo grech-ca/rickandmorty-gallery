@@ -7,6 +7,8 @@ import { Typography, Skeleton, Grid, Paper } from '@mui/material';
 import { CharacterImage } from 'components/character/CharacterImage';
 import { GoBack } from 'components/common/GoBack';
 
+import { useIsMobile } from 'hooks/useIsMobile';
+
 import { useGetCharacterByIdQuery } from 'lib/store/slices/apiSlice';
 
 import { CharacterNotFoundPage } from './CharacterNotFoundPage';
@@ -14,6 +16,8 @@ import { CharacterName } from './style';
 
 export const CharacterPage: FC = () => {
   const { characterId } = useParams();
+
+  const isMobile = useIsMobile();
 
   const { data: character, isLoading } = useGetCharacterByIdQuery(+characterId!);
 
@@ -27,10 +31,17 @@ export const CharacterPage: FC = () => {
     <Fragment>
       <Helmet>{name && <title>{name} | Rick and Morty Gallery</title>}</Helmet>
       <Grid container spacing={3}>
-        <Grid item xs={4} display="flex" justifyContent="flex-end">
+        <Grid
+          item
+          xs={12}
+          md={4}
+          display="flex"
+          justifyContent={isMobile ? 'flex-start' : 'flex-end'}
+          marginTop={isMobile ? 2 : 0}
+        >
           <GoBack fallbackPath="/">Back</GoBack>
         </Grid>
-        <Grid item xs={4} display="flex" alignItems="center" flexDirection="column">
+        <Grid item xs={12} md={4} display="flex" alignItems="center" flexDirection="column">
           <div style={{ width: '100%' }}>
             <Paper variant="outlined" style={{ overflow: 'hidden', marginBottom: 20 }}>
               <CharacterImage

@@ -28,10 +28,10 @@ export const HomePage: FC = () => {
         <title>Rick and Morty Gallery</title>
       </Helmet>
       <Grid container spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <GalleryFilter pages={(!error && data?.info.pages) || 0} />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <motion.div
             key={page}
             initial={{ opacity: 0 }}
